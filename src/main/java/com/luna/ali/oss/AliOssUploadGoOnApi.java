@@ -12,11 +12,8 @@ import com.luna.ali.config.AliOssConfigProperties;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @Package: com.luna.ali.oss
- * @ClassName: AliOssUploadGoOnApi
- * @Author: luna
- * @CreateTime: 2020/8/22 15:26
- * @Description:
+ * @author Luna@win10
+ * @date 2020/4/20 11:46
  */
 public class AliOssUploadGoOnApi {
 

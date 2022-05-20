@@ -29,7 +29,7 @@ public class PostObjectSample {
     private void postObjectByForm(String localFilePath, String bucketName, String objectName,
         AliOssConfigProperties aliOssConfigProperties) throws Exception {
         // 在URL中添加存储空间名称，添加后URL如下：http://yourBucketName.oss-cn-hangzhou.aliyuncs.com。
-        String host = aliOssConfigProperties.getHost().replace("http://", "http://" + bucketName + ".");
+        String host = aliOssConfigProperties.getEndpoint().replace("http://", "http://" + bucketName + ".");
         // 设置表单Map。
         Map<String, String> formFields = new LinkedHashMap<String, String>();
         // 设置文件名称。

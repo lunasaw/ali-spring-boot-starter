@@ -1,5 +1,7 @@
 package com.luna.ali.config;
 
+import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -13,89 +15,56 @@ import com.aliyun.oss.OSSClientBuilder;
  */
 @Component
 @ConfigurationProperties(prefix = "luna.ali")
+@Data
 public class AliOssConfigProperties {
+    private String  accessKey;
 
-    private String ossId;
+    private String  secretKey;
 
-    private String ossKey;
+    private String  bucketName;
 
-    private String bucketName;
+    /**
+     * endpoint
+     */
+    private String  endpoint;
+    /**
+     * 自定义域名
+     */
+    private String  domain;
 
-    private String host;
+    /**
+     * 回调路径
+     */
+    private String  serverUrl;
 
-    private String domain;
+    /**
+     * 是否开启自定义域名
+     */
+    private Boolean enableCname;
 
-    private String serverUrl;
-
-    public String getServerUrl() {
-        return serverUrl;
-    }
-
-    public void setServerUrl(String serverUrl) {
-        this.serverUrl = serverUrl;
-    }
+    /**
+     * 创建OSSClient实例
+     */
+    private OSS     ossClient;
 
     public OSS getOssClient() {
-        return ossClient;
+        if (null == enableCname) {
+            return getOssClient(false);
+        }
+        return getOssClient(true);
     }
-
-    public String getDomain() {
-        return domain;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    /** 创建OSSClient实例 */
-    private OSS ossClient;
 
     public OSS getOssClient(Boolean isCname) {
-        if (isCname) {
+        if (isCname && StringUtils.isNotEmpty(domain)) {
             ClientBuilderConfiguration conf = new ClientBuilderConfiguration();
             // 设置是否支持CNAME。CNAME是指将自定义域名绑定到存储空间上。
             conf.setSupportCname(true);
-            return new OSSClientBuilder().build(domain, ossId, ossKey, conf);
+            return new OSSClientBuilder().build(domain, accessKey, secretKey, conf);
         }
         if (ossClient == null) {
-            this.ossClient = new OSSClientBuilder().build(host, ossId, ossKey);
+            this.ossClient = new OSSClientBuilder().build(endpoint, accessKey, secretKey);
         }
         return ossClient;
     }
 
-    public void setOssClient(OSS ossClient) {
-        this.ossClient = ossClient;
-    }
-
-    public String getBucketName() {
-        return bucketName;
-    }
-
-    public void setBucketName(String bucketName) {
-        this.bucketName = bucketName;
-    }
-
-    public String getOssId() {
-        return ossId;
-    }
-
-    public void setOssId(String ossId) {
-        this.ossId = ossId;
-    }
-
-    public String getOssKey() {
-        return ossKey;
-    }
-
-    public void setOssKey(String ossKey) {
-        this.ossKey = ossKey;
-    }
 }
