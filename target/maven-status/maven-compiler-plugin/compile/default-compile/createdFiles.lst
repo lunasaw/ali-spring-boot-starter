@@ -30,7 +30,6 @@ com/luna/ali/alipay/container/PayParamConstant.class
 com/luna/ali/dto/CloseOrderDTO.class
 com/luna/ali/service/AlipayService.class
 com/luna/ali/dto/OssUploadDTO.class
-com/luna/ali/controller/AliPayController.class
 com/luna/ali/oss/PostObjectSample.class
 com/luna/ali/config/AliOssConfigProperties.class
 com/luna/ali/oss/AliOssUtil.class

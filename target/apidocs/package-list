@@ -14,7 +14,6 @@ com.luna.ali.alipay.pay.refund.query
 com.luna.ali.alipay.pay.refund.query.param
 com.luna.ali.api
 com.luna.ali.config
-com.luna.ali.controller
 com.luna.ali.dto
 com.luna.ali.oss
 com.luna.ali.service
