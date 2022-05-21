@@ -4,6 +4,10 @@ import java.io.*;
 import java.net.URL;
 import java.util.Objects;
 
+import com.aliyun.oss.ClientException;
+import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.OSSException;
+import com.luna.common.date.DateUtils;
 import com.luna.common.text.RandomStrUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,6 +20,9 @@ import com.aliyun.oss.model.*;
 import com.luna.ali.config.AliOssConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @Package: com.luna.ali.oss
@@ -24,16 +31,15 @@ import org.springframework.stereotype.Component;
  * @CreateTime: 2020/8/21 22:23
  * @Description:
  */
-@Component
 public class AliOssUploadApi {
 
-    @Autowired
-    private AliOssConfigProperties aliOssConfigProperties;
+    public AliOssUploadApi(OSS ossClient) {
+        this.ossClient = ossClient;
+    }
 
-    private final OSS              ossClient = aliOssConfigProperties.getOssClient();
+    private OSS                 ossClient;
 
-    private static final Logger    log       = LoggerFactory.getLogger(AliOssUploadApi.class);
-
+    private static final Logger log = LoggerFactory.getLogger(AliOssUploadApi.class);
 
     /**
      * 上传文件
@@ -44,12 +50,19 @@ public class AliOssUploadApi {
      * @return
      */
     public PutObjectResult uploadFile(String fileName, String bucketName, String folder) {
+        Assert.notNull(bucketName, "存储空间名称不能为空");
         File file = new File(fileName);
-        if (!folder.endsWith("/")) {
+        if (StringUtils.isNotEmpty(folder) && !folder.endsWith("/")) {
             folder += "/";
         }
-        String filePath = folder + System.currentTimeMillis() + "_" + RandomStrUtil.generateNonceStrWithUUID() + "_" + file.getName();
+        String filePath = folder + DateUtils.getTodayString() + "_" + RandomStrUtil.generateNonceStrWithUUID() + "_" + file.getName();
         return uploadFile(filePath, file, bucketName, folder, null, null);
+    }
+
+    public static void main(String[] args) {
+        String filePath = "" + DateUtils.getTodayString() + "_" + RandomStrUtil.generateNonceStrWithUUID() + "_" + "1231.png";
+        System.out.println(filePath);
+        System.out.println(filePath.length());
     }
 
     /**
@@ -93,9 +106,13 @@ public class AliOssUploadApi {
             file.getAbsolutePath(), bucketName, metadata);
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, file);
         putObjectRequest.setMetadata(metadata);
-        PutObjectResult putObjectResult = ossClient.putObject(putObjectRequest);
-        ossClient.shutdown();
-        return putObjectResult;
+        try {
+            return ossClient.putObject(putObjectRequest);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            ossClient.shutdown();
+        }
     }
 
     /**
@@ -110,9 +127,13 @@ public class AliOssUploadApi {
             new PutObjectRequest(bucketName, objectName, new ByteArrayInputStream(content.getBytes()));
 
         putObjectRequest.setMetadata(metadata);
-        PutObjectResult putObjectResult = ossClient.putObject(putObjectRequest);
-        ossClient.shutdown();
-        return putObjectResult;
+        try {
+            return ossClient.putObject(putObjectRequest);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            ossClient.shutdown();
+        }
     }
 
     /**
@@ -127,9 +148,13 @@ public class AliOssUploadApi {
             new PutObjectRequest(bucketName, objectName, new ByteArrayInputStream(content));
 
         putObjectRequest.setMetadata(metadata);
-        PutObjectResult putObjectResult = ossClient.putObject(putObjectRequest);
-        ossClient.shutdown();
-        return putObjectResult;
+        try {
+            return ossClient.putObject(putObjectRequest);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            ossClient.shutdown();
+        }
     }
 
     /**
@@ -145,11 +170,12 @@ public class AliOssUploadApi {
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, inputStream);
 
             putObjectRequest.setMetadata(metadata);
-            PutObjectResult putObjectResult = ossClient.putObject(putObjectRequest);
-            ossClient.shutdown();
-            return putObjectResult;
-        } catch (IOException e) {
+
+            return ossClient.putObject(putObjectRequest);
+        } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            ossClient.shutdown();
         }
     }
 
@@ -164,9 +190,13 @@ public class AliOssUploadApi {
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, content);
 
         putObjectRequest.setMetadata(metadata);
-        PutObjectResult putObjectResult = ossClient.putObject(putObjectRequest);
-        ossClient.shutdown();
-        return putObjectResult;
+        try {
+            return ossClient.putObject(putObjectRequest);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            ossClient.shutdown();
+        }
     }
 
 }

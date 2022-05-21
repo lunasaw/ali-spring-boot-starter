@@ -19,15 +19,15 @@ import org.springframework.util.Assert;
  * @author Luna@win10
  * @date 2020/4/20 11:46
  */
-@Component
 public class AliOssBucketApi {
 
-    @Autowired
-    private AliOssConfigProperties aliOssConfigProperties;
+    private  OSS              ossClient;
 
-    private final OSS              ossClient = aliOssConfigProperties.getOssClient();
+    public AliOssBucketApi(OSS ossClient) {
+        this.ossClient = ossClient;
+    }
 
-    private static final Logger    log       = LoggerFactory.getLogger(AliOssUploadApi.class);
+    private static final Logger    log       = LoggerFactory.getLogger(AliOssBucketApi.class);
 
     /**
      * 创建对象存储空间

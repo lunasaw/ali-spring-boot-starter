@@ -13,39 +13,48 @@
   ],
   "properties": [
     {
+      "name": "luna.ali.access-key",
+      "type": "java.lang.String",
+      "sourceType": "com.luna.ali.config.AliOssConfigProperties"
+    },
+    {
       "name": "luna.ali.bucket-name",
       "type": "java.lang.String",
       "sourceType": "com.luna.ali.config.AliOssConfigProperties"
     },
     {
-      "name": "luna.ali.domain",
-      "type": "java.lang.String",
-      "sourceType": "com.luna.ali.config.AliOssConfigProperties"
-    },
-    {
-      "name": "luna.ali.host",
-      "type": "java.lang.String",
-      "sourceType": "com.luna.ali.config.AliOssConfigProperties"
-    },
-    {
-      "name": "luna.ali.oss-client",
+      "name": "luna.ali.client",
       "type": "com.aliyun.oss.OSS",
       "description": "创建OSSClient实例",
       "sourceType": "com.luna.ali.config.AliOssConfigProperties"
     },
     {
-      "name": "luna.ali.oss-id",
+      "name": "luna.ali.domain",
       "type": "java.lang.String",
+      "description": "自定义域名",
       "sourceType": "com.luna.ali.config.AliOssConfigProperties"
     },
     {
-      "name": "luna.ali.oss-key",
+      "name": "luna.ali.enable-cname",
+      "type": "java.lang.Boolean",
+      "description": "是否开启自定义域名",
+      "sourceType": "com.luna.ali.config.AliOssConfigProperties"
+    },
+    {
+      "name": "luna.ali.endpoint",
+      "type": "java.lang.String",
+      "description": "endpoint",
+      "sourceType": "com.luna.ali.config.AliOssConfigProperties"
+    },
+    {
+      "name": "luna.ali.secret-key",
       "type": "java.lang.String",
       "sourceType": "com.luna.ali.config.AliOssConfigProperties"
     },
     {
       "name": "luna.ali.server-url",
       "type": "java.lang.String",
+      "description": "回调路径",
       "sourceType": "com.luna.ali.config.AliOssConfigProperties"
     },
     {

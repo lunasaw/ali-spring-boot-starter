@@ -58,7 +58,7 @@ public class AliOssUtil {
      * @return
      */
     public static OSS createOssWithCname(AliOssConfigProperties configVale) {
-        return configVale.getOssClient(true);
+        return configVale.getInstanceClient(true);
     }
 
     /**

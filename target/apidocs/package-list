@@ -16,4 +16,5 @@ com.luna.ali.api
 com.luna.ali.config
 com.luna.ali.dto
 com.luna.ali.oss
+com.luna.ali.oss.constant
 com.luna.ali.service

@@ -28,7 +28,7 @@ public class AliOssUploadGoOnApi {
     public static void uploadGoOn(String bucketName, List<String> contents, String objectName,
         AliOssConfigProperties aliOssConfigProperties) {
         // 创建OSSClient实例。
-        OSS ossClient = aliOssConfigProperties.getOssClient(false);
+        OSS ossClient = aliOssConfigProperties.getInstanceClient(false);
 
         ObjectMetadata meta = new ObjectMetadata();
         // 指定上传的内容类型。
@@ -81,7 +81,7 @@ public class AliOssUploadGoOnApi {
         String objectName,
         AliOssConfigProperties aliOssConfigProperties) throws Throwable {
         // 创建OSSClient实例。
-        OSS ossClient = aliOssConfigProperties.getOssClient(false);
+        OSS ossClient = aliOssConfigProperties.getInstanceClient(false);
 
         ObjectMetadata meta = new ObjectMetadata();
         // 指定上传的内容类型。

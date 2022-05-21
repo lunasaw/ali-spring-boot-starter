@@ -11,6 +11,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.model.*;
 import com.luna.ali.config.AliOssConfigProperties;
 import com.luna.common.net.base.HttpBaseUtils;
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,15 +22,14 @@ import org.springframework.stereotype.Component;
  * @author Luna@win10
  * @date 2020/4/20 11:46
  */
-@Component
 public class AliOssDownloadApi {
 
-    @Autowired
-    private AliOssConfigProperties aliOssConfigProperties;
+    public AliOssDownloadApi(OSS ossClient) {
+        this.ossClient = ossClient;
+    }
+    private OSS                 ossClient;
 
-    private final OSS              ossClient = aliOssConfigProperties.getOssClient();
-
-    private static final Logger    log       = LoggerFactory.getLogger(AliOssUploadApi.class);
+    private static final Logger log = LoggerFactory.getLogger(AliOssUploadApi.class);
 
     /**
      * 文本读取下载
