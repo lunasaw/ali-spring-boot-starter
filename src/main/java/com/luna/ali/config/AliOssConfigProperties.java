@@ -1,6 +1,6 @@
 package com.luna.ali.config;
 
-import com.aliyun.oss.OSSClient;
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
  * @date 2020/5/6 21:09
  */
 @ConfigurationProperties(prefix = "luna.ali")
+@Data
 public class AliOssConfigProperties {
     private String  accessKey;
 
@@ -34,7 +35,12 @@ public class AliOssConfigProperties {
     /**
      * 回调路径
      */
-    private String  serverUrl;
+    private String callbackUrl;
+
+    /**
+     * 回调请求头校验
+     */
+    private String callbackHost;
 
     /**
      * 是否开启自定义域名
@@ -65,69 +71,5 @@ public class AliOssConfigProperties {
             return new OSSClientBuilder().build(endpoint, accessKey, secretKey);
         }
         return client;
-    }
-
-    public String getAccessKey() {
-        return accessKey;
-    }
-
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
-    }
-
-    public String getSecretKey() {
-        return secretKey;
-    }
-
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
-    }
-
-    public String getBucketName() {
-        return bucketName;
-    }
-
-    public void setBucketName(String bucketName) {
-        this.bucketName = bucketName;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public String getDomain() {
-        return domain;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
-
-    public String getServerUrl() {
-        return serverUrl;
-    }
-
-    public void setServerUrl(String serverUrl) {
-        this.serverUrl = serverUrl;
-    }
-
-    public Boolean getEnableCname() {
-        return enableCname;
-    }
-
-    public void setEnableCname(Boolean enableCname) {
-        this.enableCname = enableCname;
-    }
-
-    public OSS getClient() {
-        return client;
-    }
-
-    public void setClient(OSS client) {
-        this.client = client;
     }
 }

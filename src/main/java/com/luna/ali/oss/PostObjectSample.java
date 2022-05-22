@@ -76,21 +76,9 @@ public class PostObjectSample {
     }
 
     /**
-     *   ali:
-     *     ossId: LTAI5t8hwCxLV3uvczHgU9bG
-     *     ossKey: OjBuIZoAVt5YroXsV6PYvxeceFIG7F
-     *     bucketName: luna-oss
-     *     host: oss-cn-beijing.aliyuncs.com
-     *     domain:
-     *     serverUrl:
      * @param args
      * @throws Exception
      */
-
-    public static void main(String[] args) throws Exception {
-        postObjectByForm("/Users/luna/Pictures/cat_2.jpg","luna97","test.png","","LTAI5t8hwCxLV3uvczHgU9bG","OjBuIZoAVt5YroXsV6PYvxeceFIG7F","https://yourBucketName.oss-cn-beijing.aliyuncs.com");
-    }
-
     private static String formUpload(String host, Map<String, String> formFields, String localFile)
         throws Exception {
         String res = "";

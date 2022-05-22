@@ -3,6 +3,7 @@ package com.luna.ali.config;
 import com.luna.ali.oss.AliOssBucketApi;
 import com.luna.ali.oss.AliOssDownloadApi;
 import com.luna.ali.oss.AliOssUploadApi;
+import com.luna.ali.oss.AliOssUploadGoOnApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -41,5 +42,11 @@ public class AliOssAutoConfiguration {
     @ConditionalOnMissingBean
     public AliOssBucketApi aliOssBucketApi() {
         return new AliOssBucketApi(aliOssConfigProperties.getInstanceClient());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public AliOssUploadGoOnApi aliOssUploadGoOnApi() {
+        return new AliOssUploadGoOnApi(aliOssConfigProperties.getInstanceClient());
     }
 }
