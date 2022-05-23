@@ -24,7 +24,7 @@ public class AliOssConfigProperties {
     private String  bucketName;
 
     /**
-     * endpoint
+     * endpoint http 开头
      */
     private String  endpoint;
     /**
