@@ -43,9 +43,9 @@ public class AliOssUploadApi {
         Assert.notNull(bucketName, "存储空间名称不能为空");
         File file = new File(fileName);
         if (StringUtils.isNotEmpty(folder) && !folder.endsWith("/")) {
-            folder += "/";
+            folder += DateUtils.datePath() + "/";
         }
-        String filePath = folder + DateUtils.getTodayString() + "_" + RandomStrUtil.generateNonceStrWithUUID() + "_" + file.getName();
+        String filePath = folder + "_" + RandomStrUtil.generateNonceStrWithUUID() + "_" + file.getName();
         return uploadFile(filePath, file, bucketName, folder, null, null);
     }
 
